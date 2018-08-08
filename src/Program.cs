@@ -35,10 +35,21 @@ namespace Scoped.logging.Serilog
 
                     //Enable Microsoft Console Logging
                     loggingBuilder.AddConfiguration(builderContext.Configuration.GetSection("Logging"));
+
                     loggingBuilder.AddConsole((options) =>
                     {
                         options.IncludeScopes = Convert.ToBoolean(builderContext.Configuration["Logging:IncludeScopes"]);
                     });
+
+                    // loggingBuilder.AddFilter((provider, category, logLevel) =>
+                    // {
+                    //     if (provider == "Microsoft.Extensions.Logging.Console.ConsoleLoggerProvider" && 
+                    //         category == "TodoApi.Controllers.TodoController")
+                    //     {
+                    //         return false;
+                    //     }
+                    //     return true;
+                    // });
                 })
                 .UseStartup<Startup>();
     }

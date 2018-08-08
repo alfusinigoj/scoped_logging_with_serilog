@@ -26,6 +26,7 @@ namespace Scoped.logging.Serilog.Controllers
             var values = new string[] { "value1", "value2" };
 
             logger.LogInformation($"Returning values '{values[0]}' and '{values[1]}'");
+            logger.LogInformation($"Do not log this, '{values[0]}' and '{values[1]} cloudfoundryapplication '");
 
             return new string[] { "value1", "value2" };
         }

@@ -293,4 +293,23 @@ In case of distributed systems, if you need to track logs for a particular reque
     Scoped.logging.Serilog.Controllers.ValuesController
 ```
 
+### 4. Adding filters in Serilog
+
+- Nuget package required (preferebly the latest one)
+```
+    <PackageReference Include="Serilog.Filters.Expressions" Version="2.0.0" />
+```
+
+- In the appsettings.json, add configuration section as below. For more details on filtering, please refer to [https://github.com/serilog/serilog-filters-expressions/blob/dev/README.md]. Refer to the sample for exact implementation
+```
+    "Filter": [
+      {
+        "Name": "ByExcluding",
+        "Args": {
+          "expression": "Contains(@Message, '*log to filter out*')"
+        }
+      }
+    ]
+```
+
 ##### Hope you had fun!
