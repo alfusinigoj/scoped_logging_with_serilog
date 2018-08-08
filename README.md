@@ -1,13 +1,13 @@
-# scoped_logging_with_serilog
-Sample application here [https://github.com/alfusinigoj/scoped_logging_with_serilog] lets you understand how to integrate serilog with Microsoft ilogger, with scoped context (for both serilog and Microsoft console loggers)
+# Scoped logging with serilog/microsoft logger
+Sample application here [https://github.com/alfusinigoj/scoped_logging_with_serilog] lets you understand how to integrate serilog with Microsoft ilogger, including scoped context (for both serilog and Microsoft console loggers)
 
-**** Why we need scopped logging? ****
+### Why we need scopped logging?
 In case of distributed systems, if you need to track logs for a particular request across the systems, it will be very challenging to find the exact logs associated with that particular request. This allows you to add any unique identifier so that you can track the log message across the systems.  Another good example of application would be, tracking logs across distributed transaction across database systems.
 
 
-**** How to enable scopped logging using Microsoft ILogger (with or without serilog integration) in a .Net core application? ****
+### How to enable scopped logging using Microsoft ILogger (with or without serilog integration) in a .Net core application?
 
-***** 1. Using Microsoft ILogger only *****
+### 1. Using Microsoft ILogger only
 
 - Nuget package required (version depends on sdk framework, preferebly the latest one)
 ```
@@ -77,7 +77,7 @@ In case of distributed systems, if you need to track logs for a particular reque
       Returning values '12' that was received
 ```
 
-***** 1. Using Microsoft ILogger integrated with Serilog *****
+### 2. Using Microsoft ILogger integrated with Serilog
 
 - Nuget package required (preferebly the latest one)
 ```
@@ -177,5 +177,9 @@ In case of distributed systems, if you need to track logs for a particular reque
 
 - Now we are all set to run and test the application, when you run the application you will see that all the logs under a single scope will be grouped by the unique/correlation id, as below. Here CorrelationId is the property we set as unique identifier for a request
 ```
-    2018-08-08 13:24:55|Information => CorrelationId:c00d1372-6b4f-402b-9666-0f93894a261e => RequestId:0HLFTAFDRCVND:00000001 => RequestPath:/api/values/12 => Scoped.logging.Serilog.Controllers.ValuesController
+    2018-08-08 13:24:55|Information => CorrelationId:c00d1372-6b4f-402b-9666-0f93894a261e => 
+    RequestId:0HLFTAFDRCVND:00000001 => RequestPath:/api/values/12 => 
+    Scoped.logging.Serilog.Controllers.ValuesController
 ```
+
+##### Hope you had fun!
