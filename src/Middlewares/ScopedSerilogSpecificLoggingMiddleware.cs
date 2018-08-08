@@ -8,13 +8,13 @@ using Serilog.Context;
 
 namespace Scoped.logging.Serilog.Middlewares
 {
-    public class ScopedLoggingMiddleware
+    public class ScopedSerilogSpecificLoggingMiddleware
     {
         const string CORRELATION_ID_HEADER_NAME = "CorrelationID";
         private readonly RequestDelegate next;
-        private readonly ILogger<ScopedLoggingMiddleware> logger;
+        private readonly ILogger<ScopedSerilogSpecificLoggingMiddleware> logger;
 
-        public ScopedLoggingMiddleware(RequestDelegate next, ILogger<ScopedLoggingMiddleware> logger)
+        public ScopedSerilogSpecificLoggingMiddleware(RequestDelegate next, ILogger<ScopedSerilogSpecificLoggingMiddleware> logger)
         {
             this.next = next ?? throw new System.ArgumentNullException(nameof(next));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -28,15 +28,10 @@ namespace Scoped.logging.Serilog.Middlewares
 
             try
             {
-                var loggerState = new LogerState
+                //Add as many nested usings as needed, for adding more properties 
+                using(LogContext.PushProperty(CORRELATION_ID_HEADER_NAME, correlationId, true))
                 {
-                    [CORRELATION_ID_HEADER_NAME] = correlationId
-                    //Add any number of properties to be logged under a single scope
-                };
-
-                using (logger.BeginScope(loggerState))
-                {
-                    await next(context);
+                    await next.Invoke(context);
                 }
             }
             //To make sure that we don't loose the scope in case of an unexpected error

@@ -50,6 +50,7 @@ namespace Scoped.logging.Serilog
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseMiddleware<ScopedLoggingMiddleware>();
+            app.UseMiddleware<ScopedSerilogSpecificLoggingMiddleware>();
 
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
