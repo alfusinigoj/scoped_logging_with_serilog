@@ -1,0 +1,10 @@
+---
+applications:
+ - name: scoped_logging_app
+   memory: 512M
+   disk_quota: 512MB
+   instances: 1
+   path: .
+   buildpack: https://github.com/cloudfoundry/dotnet-core-buildpack.git
+
+   
